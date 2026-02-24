@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNIST Live Draw</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <div>
+          <h1>MNIST Live Draw</h1>
+          <p class="subtitle">Draw a digit and see predictions update in real time.</p>
+        </div>
+        <div class="status" id="modelStatus">Loading model…</div>
+      </header>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Canvas</h2>
+          <div class="canvas-wrap">
+            <canvas id="drawCanvas" width="280" height="280"></canvas>
+            <div class="canvas-actions">
+              <button id="clearBtn" class="btn">Clear</button>
+              <div class="stack">
+                <label class="slider">
+                  <span>Brush</span>
+                  <input id="brushSize" type="range" min="6" max="30" value="16" />
+                  <span id="brushSizeValue">16</span>
+                </label>
+                <label class="toggle">
+                  <span>Eraser:</span>
+                  <input id="eraser" type="checkbox" />
+                </label>
+              </div>
+            </div>
+      </div>
+        </div>
+
+        <div class="panel">
+          <h2>Predictions</h2>
+          <div class="prediction">
+            <div class="top-pred">
+              <span>Top:</span>
+              <strong id="topPrediction">—</strong>
+            </div>
+            <div class="latency">Latency: <span id="latency">—</span></div>
+          </div>
+          <div id="bars" class="bars"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Preview</h2>
+          <div class="preview-grid">
+            <div>
+              <div class="preview-label">Transformed</div>
+              <canvas id="transformCanvas" width="280" height="280"></canvas>
+            </div>
+            <div>
+              <div class="preview-label">28×28 Input</div>
+              <canvas id="mnistCanvas" width="112" height="112"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls panel">
+        <h2>Controls</h2>
+        <div class="controls-grid">
+          <label class="slider">
+            <span>Rotation (°)</span>
+            <input id="rotation" type="range" min="0" max="180" value="0" />
+            <span id="rotationValue">0</span>
+          </label>
+          <label class="slider">
+            <span>Scale</span>
+            <input id="scale" type="range" min="50" max="150" value="100" />
+            <span id="scaleValue">1.00</span>
+          </label>
+          <label class="slider">
+            <span>Translate X</span>
+            <input id="translateX" type="range" min="-40" max="40" value="0" />
+            <span id="translateXValue">0</span>
+          </label>
+          <label class="slider">
+            <span>Translate Y</span>
+            <input id="translateY" type="range" min="-40" max="40" value="0" />
+            <span id="translateYValue">0</span>
+          </label>
+          <label class="slider">
+            <span>Blur (px)</span>
+            <input id="blur" type="range" min="0" max="4" step="0.5" value="0" />
+            <span id="blurValue">0</span>
+          </label>
+          <label class="toggle">
+            <input id="invert" type="checkbox" />
+            <span>Invert Colors</span>
+          </label>
+          <label class="toggle">
+            <input id="realtime" type="checkbox" checked />
+            <span>Real-time Classify</span>
+          </label>
+          <button id="classifyBtn" class="btn" disabled>Classify</button>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <a href="https://sebulo.github.io/" target="_blank" rel="noopener noreferrer">
+        Made by Sebastian Loeschcke
+      </a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
