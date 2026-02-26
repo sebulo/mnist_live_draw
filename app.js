@@ -11,6 +11,7 @@ const topPrediction = document.getElementById("topPrediction");
 const latencyEl = document.getElementById("latency");
 const barsEl = document.getElementById("bars");
 const clearBtn = document.getElementById("clearBtn");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
 const brushSize = document.getElementById("brushSize");
 const brushSizeValue = document.getElementById("brushSizeValue");
 const eraser = document.getElementById("eraser");
@@ -298,6 +299,7 @@ function bindEvents() {
   drawCanvas.addEventListener("pointercancel", endDraw);
 
   clearBtn.addEventListener("click", clearCanvas);
+  fullscreenBtn.addEventListener("click", toggleFullscreen);
 
   [brushSize, eraser, rotation, scale, translateX, translateY, blur, invert].forEach(
     (control) => {
@@ -316,6 +318,29 @@ function bindEvents() {
 
   classifyBtn.addEventListener("click", runPrediction);
 }
+
+function toggleFullscreen() {
+  const wrap = drawCanvas.closest(".canvas-wrap");
+  if (!document.fullscreenElement) {
+    if (wrap.requestFullscreen) {
+      wrap.requestFullscreen();
+    }
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.addEventListener("fullscreenchange", () => {
+  const wrap = drawCanvas.closest(".canvas-wrap");
+  if (!wrap) return;
+  if (document.fullscreenElement) {
+    wrap.classList.add("fullscreen");
+    fullscreenBtn.textContent = "Exit Fullscreen";
+  } else {
+    wrap.classList.remove("fullscreen");
+    fullscreenBtn.textContent = "Fullscreen";
+  }
+});
 
 function isTenClassModel(loadedModel) {
   const outputShape = loadedModel.outputs?.[0]?.shape;

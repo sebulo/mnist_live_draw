@@ -107,6 +107,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .stack {
@@ -126,9 +127,29 @@ canvas {
   cursor: pointer;
 }
 
+.btn.secondary {
+  background: #2b2b2b;
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.fullscreen {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.fullscreen canvas {
+  width: min(92vw, 92vh);
+  height: min(92vw, 92vh);
 }
 
 .slider {
