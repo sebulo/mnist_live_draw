@@ -180,11 +180,17 @@ function preprocessTo28() {
 
   const boxW = maxX - minX + 1;
   const boxH = maxY - minY + 1;
-  const scaleFactor = 20 / Math.max(boxW, boxH);
+  const scaleFactor =
+    (20 * (Number(scale.value) / 100)) / Math.max(boxW, boxH);
   const targetW = boxW * scaleFactor;
   const targetH = boxH * scaleFactor;
-  const dx = (28 - targetW) / 2;
-  const dy = (28 - targetH) / 2;
+  // Center into 28x28, then apply translation in MNIST space.
+  const baseDx = (28 - targetW) / 2;
+  const baseDy = (28 - targetH) / 2;
+  const tx28 = (Number(translateX.value) / transformCanvas.width) * 28;
+  const ty28 = (Number(translateY.value) / transformCanvas.height) * 28;
+  const dx = baseDx + tx28;
+  const dy = baseDy + ty28;
 
   mnistSmallCtx.imageSmoothingEnabled = true;
   mnistSmallCtx.drawImage(
