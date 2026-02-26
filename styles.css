@@ -100,6 +100,7 @@ canvas {
   height: auto;
   background: #0b0b0b;
   border-radius: 12px;
+  touch-action: none;
 }
 
 .canvas-actions {
